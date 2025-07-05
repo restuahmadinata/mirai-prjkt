@@ -1,5 +1,6 @@
 // Sidebar component
 import { Button } from "@/components/ui/button";
+import { Rss, ShieldCheck, UserRoundSearch } from "lucide-react";
 import Link from "next/link";
 
 export default function Sidebar() {
@@ -9,16 +10,19 @@ export default function Sidebar() {
             <nav className="flex flex-col gap-2">
             <Link href="/">
                 <Button variant="ghost" className="w-full justify-start">
+                <UserRoundSearch />
                 about
                 </Button>
             </Link>
             <Link href="/blog">
                 <Button variant="ghost" className="w-full justify-start">
+                <Rss />
                 blog
                 </Button>
             </Link>
             <Link href="/project">
                 <Button variant="ghost" className="w-full justify-start">
+                    <ShieldCheck />
                 project
                 </Button>
             </Link>
