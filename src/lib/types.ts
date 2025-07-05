@@ -1,4 +1,3 @@
-// lib/types.ts
 export interface BlogPost {
   _id: string
   title: string
@@ -15,4 +14,23 @@ export interface BlogPost {
   }
   mainImage?: any
   categories?: string[]
+}
+
+export interface Project {
+  _id: string
+  title: string
+  slug?: {
+    current: string
+  }
+  description: string
+  longDescription?: any[]
+  tech?: string[]
+  githubUrl?: string
+  liveUrl?: string
+  image?: any
+  gallery?: any[]
+  featured?: boolean
+  status?: 'completed' | 'in-progress' | 'archived'
+  completedAt?: string
+  createdAt: string
 }

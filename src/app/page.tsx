@@ -9,28 +9,28 @@ export default function Home() {
       <div className="space-y-8">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mx-auto flex items-center justify-center text-white text-3xl font-bold">
-            M
+          <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mx-auto flex items-center justify-center overflow-hidden">
+            <img
+              src="https://safebooru.org//samples/3858/sample_51691c29cb2bdd912b63e45b6fa40efb9f55dd54.jpg?4033085" // ← Ganti dengan path atau URL gambarmu
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <h1 className="text-4xl font-bold">Hello, I'm Mirai</h1>
+          <h1 className="text-4xl font-bold">hi there, i'm Radinata</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            A passionate developer who loves creating beautiful and functional web applications
+            a weebs, nothing special.
           </p>
         </div>
 
         {/* About Section */}
         <Card className="p-8">
-          <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+          <h2 className="text-2xl font-semibold mb-4">about me</h2>
           <div className="space-y-4 text-gray-700">
             <p>
-              Hi there! I'm a web developer with a passion for creating beautiful, 
-              functional, and user-friendly websites. I enjoy working with modern 
-              technologies and always strive to write clean, maintainable code.
+              i love pisang goreng.
             </p>
             <p>
-              When I'm not coding, you can find me exploring new technologies, 
-              reading tech blogs, or working on side projects. I believe in 
-              continuous learning and sharing knowledge with the community.
+              and i love Mirai Kuriyama too.
             </p>
             <div className="flex items-center gap-2 text-sm">
               <MapPin size={16} />
@@ -41,12 +41,10 @@ export default function Home() {
 
         {/* Skills Section */}
         <Card className="p-8">
-          <h2 className="text-2xl font-semibold mb-4">Skills & Technologies</h2>
+          <h2 className="text-2xl font-semibold mb-4">skills & technologies</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "JavaScript", "TypeScript", "React", "Next.js",
-              "Node.js", "Python", "HTML/CSS", "Tailwind CSS",
-              "Git", "VS Code", "MongoDB", "PostgreSQL"
+              "eat", "sleep", "take a shit", "breathing"
             ].map((skill) => (
               <div 
                 key={skill}
@@ -60,18 +58,18 @@ export default function Home() {
 
         {/* Current Projects */}
         <Card className="p-8">
-          <h2 className="text-2xl font-semibold mb-4">What I'm Working On</h2>
+          <h2 className="text-2xl font-semibold mb-4">what i'm working on</h2>
           <div className="space-y-4">
             <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="font-semibold">Personal Portfolio</h3>
+              <h3 className="font-semibold">personal website</h3>
               <p className="text-gray-600 text-sm">
-                Building this website with Next.js and TypeScript
+                for fun
               </p>
             </div>
             <div className="border-l-4 border-green-500 pl-4">
-              <h3 className="font-semibold">Learning React Native</h3>
+              <h3 className="font-semibold">learning react</h3>
               <p className="text-gray-600 text-sm">
-                Exploring mobile app development with React Native
+                for fun (2)
               </p>
             </div>
           </div>
@@ -79,22 +77,22 @@ export default function Home() {
 
         {/* Contact Section */}
         <Card className="p-8">
-          <h2 className="text-2xl font-semibold mb-4">Let's Connect</h2>
+          <h2 className="text-2xl font-semibold mb-4">let's connect</h2>
           <p className="text-gray-600 mb-6">
-            I'm always open to interesting conversations and collaboration opportunities.
+            i'm always open to interesting conversations and collaboration opportunities.
           </p>
           <div className="flex gap-4">
             <Button variant="outline" className="flex items-center gap-2">
               <Github size={16} />
-              GitHub
+              gitHub
             </Button>
             <Button variant="outline" className="flex items-center gap-2">
               <Linkedin size={16} />
-              LinkedIn
+              linkedIn
             </Button>
             <Button variant="outline" className="flex items-center gap-2">
               <Mail size={16} />
-              Email
+              email
             </Button>
           </div>
         </Card>
@@ -102,8 +100,7 @@ export default function Home() {
         {/* Fun Fact */}
         <div className="text-center py-8">
           <p className="text-sm text-gray-500">
-            Fun fact: I started my coding journey by trying to make a simple website, 
-            and here I am today! 🚀
+            fun fact: arelio hitam
           </p>
         </div>
       </div>
