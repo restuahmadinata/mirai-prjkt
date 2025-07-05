@@ -40,20 +40,20 @@ const portableTextComponents = {
           className="rounded-lg w-full h-auto"
         />
         {value.caption && (
-          <p className="text-sm text-gray-600 text-center mt-2">{value.caption}</p>
+          <p className="text-sm text-muted-foreground text-center mt-2">{value.caption}</p>
         )}
       </div>
     ),
   },
   block: {
     h2: ({ children }: any) => (
-      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">{children}</h2>
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-foreground">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h3>
+      <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">{children}</h3>
     ),
     normal: ({ children }: any) => (
-      <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
+      <p className="mb-4 leading-relaxed text-muted-foreground">{children}</p>
     ),
   },
   list: {
@@ -66,18 +66,18 @@ const portableTextComponents = {
   },
   listItem: {
     bullet: ({ children }: any) => (
-      <li className="text-gray-700">{children}</li>
+      <li className="text-muted-foreground">{children}</li>
     ),
     number: ({ children }: any) => (
-      <li className="text-gray-700">{children}</li>
+      <li className="text-muted-foreground">{children}</li>
     ),
   },
   marks: {
     strong: ({ children }: any) => (
-      <strong className="font-semibold text-gray-900">{children}</strong>
+      <strong className="font-semibold text-foreground">{children}</strong>
     ),
     code: ({ children }: any) => (
-      <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">{children}</code>
+      <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono text-foreground">{children}</code>
     ),
   },
 };
@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {blogPost.title}
             </h1>
             
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar size={16} />
                 <span>{formatDate(blogPost.publishedAt)}</span>
@@ -143,10 +143,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           />
         </div>
         
-        <div className="mt-12 pt-8 border-t">
+        <div className="mt-12 pt-8 border-t border-border">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-gray-600">Share this post:</p>
+              <p className="text-sm text-muted-foreground">Share this post:</p>
               <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">
                   Twitter

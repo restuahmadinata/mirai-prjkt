@@ -27,11 +27,11 @@ function formatDate(dateString: string) {
   });
 }
 
-function getStatusColor(status: string) {
+function getStatusColor(status?: string) {
   const styles = {
-    'completed': 'text-green-600 bg-green-100',
-    'in-progress': 'text-yellow-600 bg-yellow-100',
-    'archived': 'text-gray-600 bg-gray-100'
+    'completed': 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/20',
+    'in-progress': 'text-yellow-600 bg-yellow-100 dark:text-yellow-400 dark:bg-yellow-900/20',
+    'archived': 'text-muted-foreground bg-muted'
   };
   
   return styles[status as keyof typeof styles] || styles.completed;
@@ -50,20 +50,20 @@ const portableTextComponents = {
           className="rounded-lg w-full h-auto"
         />
         {value.caption && (
-          <p className="text-sm text-gray-600 text-center mt-2">{value.caption}</p>
+          <p className="text-sm text-muted-foreground text-center mt-2">{value.caption}</p>
         )}
       </div>
     ),
   },
   block: {
     h2: ({ children }: any) => (
-      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">{children}</h2>
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-foreground">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h3>
+      <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">{children}</h3>
     ),
     normal: ({ children }: any) => (
-      <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
+      <p className="mb-4 leading-relaxed text-muted-foreground">{children}</p>
     ),
   },
 };
@@ -91,12 +91,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               <h1 className="text-4xl font-bold leading-tight">
                 {project.title}
               </h1>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}>
-                {project.status.replace('-', ' ')}
-              </span>
+              {project.status && (
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}>
+                  {project.status.replace('-', ' ')}
+                </span>
+              )}
             </div>
             
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               {project.completedAt && (
                 <div className="flex items-center gap-1">
                   <Calendar size={16} />
@@ -118,10 +120,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             )}
 
             <div className="flex flex-wrap gap-2 mt-4">
-              {project.tech.map((tech) => (
+              {project.tech?.map((tech) => (
                 <span 
                   key={tech}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-md"
+                  className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-md border border-primary/20"
                 >
                   {tech}
                 </span>
@@ -160,7 +162,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700 leading-relaxed text-lg">
+            <p className="text-muted-foreground leading-relaxed text-lg">
               {project.description}
             </p>
           </div>
@@ -196,10 +198,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           )}
         </div>
         
-        <div className="mt-12 pt-8 border-t">
+        <div className="mt-12 pt-8 border-t border-border">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-gray-600">Share this project:</p>
+              <p className="text-sm text-muted-foreground">Share this project:</p>
               <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">
                   Twitter
@@ -226,11 +228,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 }
 
 export async function generateStaticParams() {
-  const projects: Project[] = await client.fetch(`
-    *[_type == "project" && defined(slug.current)][].slug.current
+  const slugs: string[] = await client.fetch(`
+    *[_type == "project" && defined(slug.current)].slug.current
   `);
 
-  return projects.map((slug) => ({
+  return slugs.map((slug) => ({
     slug,
   }));
 }

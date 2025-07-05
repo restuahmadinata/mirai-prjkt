@@ -1,7 +1,7 @@
 import Layout from "@/components/main-layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <div className="space-y-8">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mx-auto flex items-center justify-center overflow-hidden">
+          <div className="w-64 h-64 rounded-full bg-gradient-to-br from-primary to-primary/60 mx-auto flex items-center justify-center overflow-hidden ring-4 ring-primary/20">
             <img
               src="https://safebooru.org//samples/3858/sample_51691c29cb2bdd912b63e45b6fa40efb9f55dd54.jpg?4033085" // ← Ganti dengan path atau URL gambarmu
               alt="Profile"
@@ -17,7 +17,7 @@ export default function Home() {
             />
           </div>
           <h1 className="text-4xl font-bold">hi there, i'm Radinata</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             a weebs, nothing special.
           </p>
         </div>
@@ -25,7 +25,7 @@ export default function Home() {
         {/* About Section */}
         <Card className="p-8">
           <h2 className="text-2xl font-semibold mb-4">about me</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-muted-foreground">
             <p>
               i love pisang goreng.
             </p>
@@ -48,7 +48,7 @@ export default function Home() {
             ].map((skill) => (
               <div 
                 key={skill}
-                className="bg-blue-50 text-blue-800 px-3 py-2 rounded-lg text-center text-sm font-medium"
+                className="bg-primary/10 text-primary px-3 py-2 rounded-lg text-center text-sm font-medium border border-primary/20"
               >
                 {skill}
               </div>
@@ -60,15 +60,15 @@ export default function Home() {
         <Card className="p-8">
           <h2 className="text-2xl font-semibold mb-4">what i'm working on</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-primary pl-4">
               <h3 className="font-semibold">personal website</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-muted-foreground text-sm">
                 for fun
               </p>
             </div>
-            <div className="border-l-4 border-green-500 pl-4">
+            <div className="border-l-4 border-green-500 dark:border-green-400 pl-4">
               <h3 className="font-semibold">learning react</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-muted-foreground text-sm">
                 for fun (2)
               </p>
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
         {/* Contact Section */}
         <Card className="p-8">
           <h2 className="text-2xl font-semibold mb-4">let's connect</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-muted-foreground mb-6">
             i'm always open to interesting conversations and collaboration opportunities.
           </p>
           <div className="flex gap-4">
@@ -94,12 +94,19 @@ export default function Home() {
               <Mail size={16} />
               email
             </Button>
+
+            <Button variant="outline" className="flex items-center gap-2">
+              <Phone size={16}/>
+              whatsapp
+            </Button>
+
+            
           </div>
         </Card>
 
         {/* Fun Fact */}
         <div className="text-center py-8">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             fun fact: arelio hitam
           </p>
         </div>

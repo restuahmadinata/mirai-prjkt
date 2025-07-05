@@ -27,7 +27,7 @@ export default async function BlogPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">blog</h1>
-          <p className="text-gray-600">reflections, learning guides, and daily insights</p>
+          <p className="text-muted-foreground">reflections, learning guides, and daily insights</p>
         </div>
         
         <div className="grid gap-6">
@@ -47,7 +47,7 @@ export default async function BlogPage() {
                 )}
                 
                 <div className="flex-1 space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <span>{formatDate(post.publishedAt)}</span>
                     <span>•</span>
                     <span>{post.readTime} min read</span>
@@ -60,12 +60,12 @@ export default async function BlogPage() {
                   </div>
                   
                   <Link href={`/blog/${post.slug.current}`}>
-                    <h2 className="text-xl font-semibold hover:text-blue-600 cursor-pointer">
+                    <h2 className="text-xl font-semibold hover:text-primary cursor-pointer">
                       {post.title}
                     </h2>
                   </Link>
                   
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-foreground leading-relaxed">
                     {post.excerpt}
                   </p>
                   
@@ -74,7 +74,7 @@ export default async function BlogPage() {
                       {post.categories.map((category) => (
                         <span
                           key={category}
-                          className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md"
+                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
                         >
                           {category}
                         </span>
@@ -83,7 +83,7 @@ export default async function BlogPage() {
                   )}
                   
                   <Link href={`/blog/${post.slug.current}`}>
-                    <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    <button className="text-primary hover:text-primary/80 font-medium text-sm">
                       Read more →
                     </button>
                   </Link>
@@ -95,7 +95,7 @@ export default async function BlogPage() {
         
         {blogPosts.length === 0 && (
           <div className="text-center py-8">
-            <p className="text-gray-500">No blog posts found. Create your first post in Sanity Studio!</p>
+            <p className="text-muted-foreground">No blog posts found. Create your first post in Sanity Studio!</p>
           </div>
         )}
       </div>

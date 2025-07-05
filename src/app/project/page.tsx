@@ -14,9 +14,9 @@ async function getProjects(): Promise<Project[]> {
 
 function getStatusBadge(status: string) {
   const styles = {
-    'completed': 'bg-green-100 text-green-800',
-    'in-progress': 'bg-yellow-100 text-yellow-800',
-    'archived': 'bg-gray-100 text-gray-800'
+    'completed': 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
+    'in-progress': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
+    'archived': 'bg-muted text-muted-foreground'
   };
   
   return styles[status as keyof typeof styles] || styles.completed;
@@ -42,13 +42,13 @@ export default async function ProjectPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">projects</h1>
-          <p className="text-gray-600">collection of my work and side projects</p>
+          <p className="text-muted-foreground">collection of my work and side projects</p>
         </div>
         
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <Card key={project._id} className="overflow-hidden hover:shadow-md transition-shadow">
-              <div className="aspect-video bg-gray-100 relative">
+              <div className="aspect-video bg-muted relative">
                 {project.image ? (
                   <Image
                     src={urlFor(project.image).width(400).height(250).url()}
@@ -57,7 +57,7 @@ export default async function ProjectPage() {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                     project preview
                   </div>
                 )}
@@ -68,7 +68,7 @@ export default async function ProjectPage() {
                     {formatStatus(project.status)}
                   </span>
                   {project.featured && (
-                    <span className="px-2 py-1 bg-blue-500 text-white text-xs rounded-md">
+                    <span className="px-2 py-1 bg-primary text-primary-foreground text-xs rounded-md">
                       Featured
                     </span>
                   )}
@@ -79,23 +79,23 @@ export default async function ProjectPage() {
                 <div>
                   {project.slug?.current ? (
                     <Link href={`/project/${project.slug.current}`}>
-                      <h2 className="text-xl font-semibold hover:text-blue-600 cursor-pointer">
+                      <h2 className="text-xl font-semibold hover:text-primary cursor-pointer">
                         {project.title}
                       </h2>
                     </Link>
                   ) : (
-                    <h2 className="text-xl font-semibold text-gray-700">
+                    <h2 className="text-xl font-semibold text-muted-foreground">
                       {project.title}
                     </h2>
                   )}
                   {project.completedAt && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       Completed {formatDate(project.completedAt)}
                     </p>
                   )}
                 </div>
                 
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {project.description}
                 </p>
                 
@@ -103,7 +103,7 @@ export default async function ProjectPage() {
                   {project.tech?.map((tech) => (
                     <span 
                       key={tech}
-                      className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md"
+                      className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20"
                     >
                       {tech}
                     </span>
@@ -157,12 +157,12 @@ export default async function ProjectPage() {
         
         {projects.length === 0 && (
           <div className="text-center py-8">
-            <p className="text-gray-500">No projects found. Create your first project in Sanity Studio!</p>
+            <p className="text-muted-foreground">No projects found. Create your first project in Sanity Studio!</p>
           </div>
         )}
         
         <div className="text-center py-8">
-          <p className="text-gray-500">more projects coming soon...</p>
+          <p className="text-muted-foreground">more projects coming soon...</p>
         </div>
       </div>
     </Layout>
