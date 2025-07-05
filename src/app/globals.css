@@ -121,6 +121,7 @@
   }
 }
 
+
 /* Prose styling for blog content */
 .prose {
   max-width: none;
@@ -160,4 +161,12 @@
 
 .prose blockquote {
   @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 my-4;
+}
+
+.prose pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-4;
+}
+
+.prose img {
+  @apply rounded-lg my-6;
 }

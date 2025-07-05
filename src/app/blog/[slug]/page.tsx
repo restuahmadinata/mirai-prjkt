@@ -1,43 +1,13 @@
 import Layout from "@/components/main-layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import Link from "next/link";
-
-// Mock data untuk blog post detail
-const blogPost = {
-  id: 1,
-  title: "Memulai Journey sebagai Developer",
-  content: `
-    <p>Menjadi seorang developer bukanlah perjalanan yang mudah, namun sangat rewarding. Dalam artikel ini, saya akan berbagi pengalaman saya dalam memulai karir sebagai programmer.</p>
-    
-    <h2>Mengapa Memilih Programming?</h2>
-    <p>Dulu saya tidak pernah membayangkan akan menjadi seorang programmer. Awalnya hanya iseng-iseng mencoba membuat website sederhana, tapi ternyata sangat menarik!</p>
-    
-    <h2>Langkah Pertama</h2>
-    <p>Langkah pertama yang saya lakukan adalah:</p>
-    <ul>
-      <li>Belajar HTML dan CSS dasar</li>
-      <li>Mencoba JavaScript untuk interaktivitas</li>
-      <li>Membuat project kecil-kecilan</li>
-      <li>Join komunitas developer lokal</li>
-    </ul>
-    
-    <h2>Tips untuk Pemula</h2>
-    <p>Beberapa tips yang bisa saya bagikan:</p>
-    <ol>
-      <li><strong>Konsisten belajar</strong> - Dedikasikan waktu setiap hari untuk coding</li>
-      <li><strong>Practice makes perfect</strong> - Buat project sebanyak mungkin</li>
-      <li><strong>Join komunitas</strong> - Berteman dengan developer lain sangat membantu</li>
-      <li><strong>Jangan takut bertanya</strong> - Stack Overflow dan forum lain adalah teman terbaik</li>
-    </ol>
-    
-    <h2>Kesimpulan</h2>
-    <p>Journey sebagai developer memang challenging, tapi sangat menyenangkan. Yang terpenting adalah konsistensi dan never stop learning!</p>
-  `,
-  date: "2025-01-15",
-  readTime: "5 min read",
-  author: "Mirai"
-};
+import { notFound } from "next/navigation";
+import { client, urlFor } from "@/lib/sanity";
+import { blogPostBySlugQuery } from "@/lib/queries";
+import { BlogPost } from "@/lib/types";
+import { PortableText } from "@portabletext/react";
+import Image from "next/image";
 
 interface BlogPostPageProps {
   params: {
@@ -45,7 +15,80 @@ interface BlogPostPageProps {
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+async function getBlogPost(slug: string): Promise<BlogPost | null> {
+  return await client.fetch(blogPostBySlugQuery, { slug });
+}
+
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+// Portable Text components for custom rendering
+const portableTextComponents = {
+  types: {
+    image: ({ value }: any) => (
+      <div className="my-8">
+        <Image
+          src={urlFor(value).width(800).height(400).url()}
+          alt={value.alt || 'Blog image'}
+          width={800}
+          height={400}
+          className="rounded-lg w-full h-auto"
+        />
+        {value.caption && (
+          <p className="text-sm text-gray-600 text-center mt-2">{value.caption}</p>
+        )}
+      </div>
+    ),
+  },
+  block: {
+    h2: ({ children }: any) => (
+      <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">{children}</h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h3>
+    ),
+    normal: ({ children }: any) => (
+      <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
+    ),
+  },
+  list: {
+    bullet: ({ children }: any) => (
+      <ul className="list-disc pl-6 mb-4 space-y-1">{children}</ul>
+    ),
+    number: ({ children }: any) => (
+      <ol className="list-decimal pl-6 mb-4 space-y-1">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: any) => (
+      <li className="text-gray-700">{children}</li>
+    ),
+    number: ({ children }: any) => (
+      <li className="text-gray-700">{children}</li>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-semibold text-gray-900">{children}</strong>
+    ),
+    code: ({ children }: any) => (
+      <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">{children}</code>
+    ),
+  },
+};
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const blogPost = await getBlogPost(params.slug);
+
+  if (!blogPost) {
+    notFound();
+  }
+
   return (
     <Layout>
       <article className="max-w-4xl mx-auto">
@@ -65,21 +108,40 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center gap-1">
                 <Calendar size={16} />
-                <span>{blogPost.date}</span>
+                <span>{formatDate(blogPost.publishedAt)}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Clock size={16} />
-                <span>{blogPost.readTime}</span>
+                <span>{blogPost.readTime} min read</span>
               </div>
-              <span>by {blogPost.author}</span>
+              {blogPost.author && (
+                <div className="flex items-center gap-1">
+                  <User size={16} />
+                  <span>by {blogPost.author.name}</span>
+                </div>
+              )}
             </div>
+
+            {blogPost.mainImage && (
+              <div className="mt-6">
+                <Image
+                  src={urlFor(blogPost.mainImage).width(1200).height(600).url()}
+                  alt={blogPost.title}
+                  width={1200}
+                  height={600}
+                  className="rounded-lg w-full h-auto"
+                />
+              </div>
+            )}
           </div>
         </div>
         
-        <div 
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: blogPost.content }}
-        />
+        <div className="prose prose-lg max-w-none">
+          <PortableText 
+            value={blogPost.content} 
+            components={portableTextComponents}
+          />
+        </div>
         
         <div className="mt-12 pt-8 border-t">
           <div className="flex justify-between items-center">
@@ -108,4 +170,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       </article>
     </Layout>
   );
+}
+
+// Generate static params for static generation
+export async function generateStaticParams() {
+  const posts: BlogPost[] = await client.fetch(`
+    *[_type == "post" && defined(slug.current)][].slug.current
+  `);
+
+  return posts.map((slug) => ({
+    slug,
+  }));
 }
