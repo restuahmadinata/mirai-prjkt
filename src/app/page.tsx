@@ -99,7 +99,6 @@ export default function Home() {
               <Phone size={16}/>
               whatsapp
             </Button>
-
             
           </div>
         </Card>
